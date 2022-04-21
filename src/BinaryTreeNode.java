@@ -24,4 +24,9 @@ public class BinaryTreeNode<E> {
     public BinaryTreeNode getRightChild() {
         return rightChild;
     }
+
+    @Override
+    public String toString() {
+        return element.toString();
+    }
 }

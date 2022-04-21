@@ -37,19 +37,19 @@ public class BinaryTree<E> {
         return nodes.contains(element);
     }
 
-    public ArrayList<E> inOrder() {
+    public ArrayList<E> preOrder() {
         if (isEmpty()) {
             return null;
         }
         ArrayList<E> temp = new ArrayList<>();
         Stack<E> tmpStack = new Stack<>();
         BinaryTreeNode node = root;
-        while ((node != null) || !tmpStack.empty()){
-            if (node != null){
+        while ((node != null) || !tmpStack.empty()) {
+            if (node != null) {
                 temp.add((E) node);
                 tmpStack.push((E) node);
                 node = node.getLeftChild();
-            }else {
+            } else {
                 BinaryTreeNode nodeTmp = (BinaryTreeNode) tmpStack.pop();
                 node = nodeTmp.getRightChild();
             }

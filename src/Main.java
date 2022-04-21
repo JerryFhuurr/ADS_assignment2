@@ -24,7 +24,7 @@ public class Main {
 
         BinaryTree tree = new BinaryTree(nodes);
         for (int i = 0; i < tree.getSize(); i++){
-            System.out.println(tree.inOrder().get(i));
+            System.out.print(tree.preOrder().get(i));
         }
     }
 }
