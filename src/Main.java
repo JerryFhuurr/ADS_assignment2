@@ -40,6 +40,16 @@ public class Main {
         }
 
         System.out.println(" ");
+        for (int i = 0; i < tree.getSize(); i++) {
+            System.out.print(tree.postOrder().get(i));
+        }
 
+        System.out.println(" ");
+        for (int i = 0; i < tree.getSize(); i++) {
+            System.out.print(tree.levelOrder().get(i));
+        }
+
+        System.out.println(" ");
+        System.out.println(tree.height());
     }
 }
