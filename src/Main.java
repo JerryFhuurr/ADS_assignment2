@@ -19,12 +19,27 @@ public class Main {
         n2.addLeftChild(n5);
         n2.addRightChild(n6);
         ArrayList<BinaryTreeNode> nodes = new ArrayList<>();
-        nodes.add(root); nodes.add(n1); nodes.add(n2); nodes.add(n3); nodes.add(n4);
-        nodes.add(n5); nodes.add(n6); nodes.add(n7);
+        nodes.add(root);
+        nodes.add(n1);
+        nodes.add(n2);
+        nodes.add(n3);
+        nodes.add(n4);
+        nodes.add(n5);
+        nodes.add(n6);
+        nodes.add(n7);
 
         BinaryTree tree = new BinaryTree(nodes);
-        for (int i = 0; i < tree.getSize(); i++){
+        for (int i = 0; i < tree.getSize(); i++) {
             System.out.print(tree.preOrder().get(i));
         }
+
+        System.out.println(" ");
+
+        for (int i = 0; i < tree.getSize(); i++) {
+            System.out.print(tree.inOrder().get(i));
+        }
+
+        System.out.println(" ");
+
     }
 }

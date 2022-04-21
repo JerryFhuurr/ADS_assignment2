@@ -56,4 +56,52 @@ public class BinaryTree<E> {
         }
         return temp;
     }
+
+    public ArrayList<E> inOrder() {
+        if (isEmpty()) {
+            return null;
+        }
+        ArrayList<E> listTmp = new ArrayList<>();
+        Stack<E> tmpStack = new Stack<>();
+        BinaryTreeNode node = root;
+        while ((node != null) || !tmpStack.empty()) {
+            if (node != null) {
+                tmpStack.push((E) node);
+                node = node.getLeftChild();
+            } else {
+                BinaryTreeNode tmpNode = (BinaryTreeNode) tmpStack.pop();
+                listTmp.add((E) tmpNode);
+                node = tmpNode.getRightChild();
+            }
+        }
+        return listTmp;
+    }
+
+    public ArrayList<E> postOrder() {
+        if (isEmpty()) {
+            return null;
+        }
+        ArrayList<E> listTmp = new ArrayList<>();
+        BinaryTreeNode cur, pre = null;
+
+        Stack<E> tmpStack = new Stack<>();
+        tmpStack.push((E) root);
+
+        while (!tmpStack.empty()) {
+            cur = (BinaryTreeNode) tmpStack.peek();
+            if ((cur.getLeftChild() == null && cur.getRightChild() == null) || (pre != null && (pre == cur.getLeftChild() || pre == cur.getRightChild()))) {
+                listTmp.add((E) cur);
+                tmpStack.pop();
+                pre = cur;
+            } else {
+                if (cur.getRightChild() != null) {
+                    tmpStack.push((E) cur.getRightChild());
+                }
+                if (cur.getLeftChild() != null) {
+                    tmpStack.push((E) cur.getLeftChild());
+                }
+            }
+        }
+        return listTmp;
+    }
 }
