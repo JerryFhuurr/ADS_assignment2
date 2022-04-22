@@ -2,14 +2,16 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        BinaryTreeNode root = new BinaryTreeNode("G");
-        BinaryTreeNode n1 = new BinaryTreeNode("D");
-        BinaryTreeNode n2 = new BinaryTreeNode("M");
-        BinaryTreeNode n3 = new BinaryTreeNode("A");
-        BinaryTreeNode n4 = new BinaryTreeNode("F");
-        BinaryTreeNode n5 = new BinaryTreeNode("H");
-        BinaryTreeNode n6 = new BinaryTreeNode("Z");
-        BinaryTreeNode n7 = new BinaryTreeNode("E");
+        BinarySearchTreeNode root = new BinarySearchTreeNode("G");
+        BinarySearchTreeNode n1 = new BinarySearchTreeNode("D");
+        BinarySearchTreeNode n2 = new BinarySearchTreeNode("M");
+        BinarySearchTreeNode n3 = new BinarySearchTreeNode("A");
+        BinarySearchTreeNode n4 = new BinarySearchTreeNode("F");
+        BinarySearchTreeNode n5 = new BinarySearchTreeNode("H");
+        BinarySearchTreeNode n6 = new BinarySearchTreeNode("Z");
+        BinarySearchTreeNode n7 = new BinarySearchTreeNode("E");
+
+        BinarySearchTreeNode n8 = new BinarySearchTreeNode("Y");
 
         root.addLeftChild(n1);
         root.addRightChild(n2);
@@ -18,7 +20,7 @@ public class Main {
         n4.addLeftChild(n7);
         n2.addLeftChild(n5);
         n2.addRightChild(n6);
-        ArrayList<BinaryTreeNode> nodes = new ArrayList<>();
+        ArrayList<BinarySearchTreeNode> nodes = new ArrayList<>();
         nodes.add(root);
         nodes.add(n1);
         nodes.add(n2);
@@ -28,13 +30,23 @@ public class Main {
         nodes.add(n6);
         nodes.add(n7);
 
+        BinarySearchTree tree = new BinarySearchTree(nodes);
+        //tree.findMin();
+
+        //System.out.println(tree.insertHandler(n8));
+        tree.insertHandler(n8);
+        for (int i = 0; i < tree.getSize(); i++) {
+            System.out.print(tree.preOrder().get(i));
+        }
+
+        /*
         BinaryTree tree = new BinaryTree(nodes);
         for (int i = 0; i < tree.getSize(); i++) {
             System.out.print(tree.preOrder().get(i));
         }
 
         System.out.println(" ");
-
+        System.out.println("left " + nodes.get(0).getLeftChild());
         for (int i = 0; i < tree.getSize(); i++) {
             System.out.print(tree.inOrder().get(i));
         }
@@ -51,5 +63,7 @@ public class Main {
 
         System.out.println(" ");
         System.out.println(tree.height());
+
+         */
     }
 }

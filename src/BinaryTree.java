@@ -23,10 +23,6 @@ public class BinaryTree<E> {
         return root;
     }
 
-    public void setNodes(ArrayList<E> nodes) {
-        this.nodes = nodes;
-    }
-
     public boolean isEmpty() {
         return nodes.isEmpty();
     }
@@ -133,6 +129,7 @@ public class BinaryTree<E> {
         if (nodes.isEmpty()) {
             return -1;
         }
+        //↓notes for myself
         //使用count进行层级统计。
         //nextCount保存的是每层遍历后新增到队列中的元素数量。
         //如果count++ = nextCount 就说明将该层遍历完了 deep++ nextCount等于队列中保存的下一层的所有结点数目。

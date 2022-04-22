@@ -25,6 +25,14 @@ public class BinaryTreeNode<E> {
         return rightChild;
     }
 
+    public E getElement() {
+        return element;
+    }
+
+    public void setElement(E element) {
+        this.element = element;
+    }
+
     @Override
     public String toString() {
         return element.toString();
