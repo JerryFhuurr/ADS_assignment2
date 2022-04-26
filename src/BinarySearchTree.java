@@ -1,9 +1,8 @@
 import java.util.ArrayList;
-import java.util.Stack;
 
 public class BinarySearchTree<E> extends BinaryTree {
     private BinarySearchTreeNode root;
-    private ArrayList<E> nodes;
+    private final ArrayList<E> nodes;
 
     public BinarySearchTree(ArrayList<E> nodes) {
         super(nodes);
@@ -35,18 +34,18 @@ public class BinarySearchTree<E> extends BinaryTree {
         return (E) maxNode;
     }
 
-    private boolean insertNode(E element) {
+    public boolean insertNode(E element) {
         BinarySearchTreeNode newNode = (BinarySearchTreeNode) element;
-        if (contains(element)){
+        if (contains(element)) {
             return false;
-        }else {
+        } else {
             if (nodes.isEmpty()) {
                 root = newNode;
                 nodes.add(element);
                 return true;
             } else {
                 BinarySearchTreeNode current = root;
-                BinarySearchTreeNode parentNode = null;
+                BinarySearchTreeNode parentNode;
                 while (current != null) {
                     parentNode = current;
                     if (current.compareTo(element) > 0) {
@@ -54,6 +53,7 @@ public class BinarySearchTree<E> extends BinaryTree {
                         if (current == null) {
                             parentNode.addLeftChild(newNode);
                             nodes.add((E) newNode);
+
                             return true;
                         }
                     } else {
@@ -65,18 +65,79 @@ public class BinarySearchTree<E> extends BinaryTree {
                         }
                     }
                 }
-        }
+            }
 
         }
         return false;
     }
 
-    public String insertHandler(E elementInsert) {
-        if (insertNode(elementInsert)) {
-            return "insert: success";
-        } else {
-            return "insert: failed";
+    public boolean deleteNode(E element) {
+        BinarySearchTreeNode parent = null;
+        BinarySearchTreeNode current = root;
+        BinarySearchTreeNode nodeRemove = (BinarySearchTreeNode) element;
+        //1.find the location of node need to delete
+        while (current != null) {
+            if (nodeRemove.compareTo(current) < 0) {
+                parent = current;
+                current = (BinarySearchTreeNode) current.getLeftChild();
+            } else if (nodeRemove.compareTo(current) > 0) {
+                parent = current;
+                current = (BinarySearchTreeNode) current.getRightChild();
+            } else break;
         }
+
+        //current is pointing the node to be removed
+        if(current == null){
+            return false;
+        }
+
+        //a.no left child (include no left but has right and neither left nor right)
+        if (current.getLeftChild() == null){
+            if (parent == null){
+                root = (BinarySearchTreeNode) current.getRightChild();
+            }else {
+                if (nodeRemove.compareTo(parent) < 0){
+                    parent.addLeftChild(current.getRightChild());
+                }else {
+                    parent.addRightChild(current.getRightChild());
+                }
+            }
+        }
+        //b.has left but no right
+        else if (current.getRightChild() == null){
+            if (parent == null){
+                root = (BinarySearchTreeNode) current.getLeftChild();
+            }else {
+                if (nodeRemove.compareTo(parent) < 0){
+                    parent.addLeftChild(current.getLeftChild());
+                }else {
+                    parent.addRightChild(current.getLeftChild());
+                }
+            }
+        }
+        //c.both left and right
+        else {
+            BinarySearchTreeNode parentRightMost = current;
+            BinarySearchTreeNode rightMost = (BinarySearchTreeNode) current.getLeftChild();
+
+            //find the max value in left child
+            while (rightMost.getRightChild() != null){
+                parentRightMost = rightMost;
+                rightMost = (BinarySearchTreeNode) rightMost.getRightChild();
+            }
+
+            current = rightMost;
+            if (parentRightMost.getRightChild() == rightMost){
+                parentRightMost.addRightChild(rightMost.getLeftChild());
+            }else {
+                parentRightMost.addLeftChild(rightMost.getLeftChild());
+            }
+        }
+        nodes.remove(element);
+        return true;
     }
 
+    public ArrayList<E> getNodes() {
+        return nodes;
+    }
 }
