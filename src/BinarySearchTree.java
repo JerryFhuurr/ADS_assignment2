@@ -42,6 +42,7 @@ public class BinarySearchTree<E> extends BinaryTree {
             if (nodes.isEmpty()) {
                 root = newNode;
                 nodes.add(element);
+                size++;
                 return true;
             } else {
                 BinarySearchTreeNode current = root;
@@ -53,7 +54,7 @@ public class BinarySearchTree<E> extends BinaryTree {
                         if (current == null) {
                             parentNode.addLeftChild(newNode);
                             nodes.add((E) newNode);
-
+                            size++;
                             return true;
                         }
                     } else {
@@ -61,6 +62,7 @@ public class BinarySearchTree<E> extends BinaryTree {
                         if (current == null) {
                             parentNode.addRightChild(newNode);
                             nodes.add((E) newNode);
+                            size++;
                             return true;
                         }
                     }
@@ -134,6 +136,7 @@ public class BinarySearchTree<E> extends BinaryTree {
             }
         }
         nodes.remove(element);
+        size--;
         return true;
     }
 

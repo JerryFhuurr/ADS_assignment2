@@ -5,7 +5,7 @@ import java.util.Stack;
 
 public class BinaryTree<E> {
     private final BinaryTreeNode root;
-    private final int size;
+    int size;
     private ArrayList<E> nodes;
 
     public BinaryTree(ArrayList<E> nodes) {
