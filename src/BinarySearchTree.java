@@ -140,7 +140,81 @@ public class BinarySearchTree<E> extends BinaryTree {
         return true;
     }
 
-    public ArrayList<E> getNodes() {
-        return nodes;
+    public void reBalance() {
+        if (nodes != null && !nodes.isEmpty()) {
+            while (root.balanceValue() >1 || root.balanceValue() < -1) {
+                BinaryTreeNode superNode = root;
+                BinaryTreeNode node = null;
+                if (superNode.balanceValue() < -1) {
+                    node = superNode.getLeftChild();
+                } else if (superNode.balanceValue() > 1) {
+                    node = superNode.getRightChild();
+                }
+
+                if (node != null) {
+                    BinaryTreeNode superSuperNode = null;
+                    while (true) {
+                        if (node.balanceValue() < -1 && node.getLeftChild().balanceValue() != 0) {
+                            superSuperNode = superNode;
+                            superNode = node;
+                            node = node.getLeftChild();
+                        } else if (node.balanceValue() > 1 && node.getRightChild().balanceValue() != 0) {
+                            superSuperNode = superNode;
+                            superNode = node;
+                            node = node.getRightChild();
+                        } else {
+                            break;
+                        }
+                    }
+                    //balance
+                    if (superNode.getLeftChild()==node) {
+                        if (node.balanceValue() > 0) {
+                            BinaryTreeNode subNode = node.getRightChild();
+                            node.addRightChild(subNode.getLeftChild());
+                            subNode.addLeftChild(node);
+                            superNode.addLeftChild(subNode);
+                        } else {
+                            superNode.addLeftChild(node.getRightChild());
+                            node.addRightChild(superNode);
+                            if (superSuperNode != null) {
+                                if (superSuperNode.getLeftChild()==superNode) {
+                                    superSuperNode.addLeftChild(node);
+                                } else {
+                                    superSuperNode.addRightChild(node);
+                                }
+                            } else {
+                                root = (BinarySearchTreeNode) node;
+                                nodes.remove(node);
+                                nodes.add(0, (E) node);
+                            }
+                        }
+                    } else {
+                        if (superNode.getRightChild()==node) {
+                            if (node.balanceValue() < 0) {
+                                BinaryTreeNode subNode = node.getLeftChild();
+                                node.addLeftChild(subNode.getRightChild());
+                                subNode.addRightChild(node);
+                                superNode.addRightChild(subNode);
+                            } else {
+                                superNode.addRightChild(node.getLeftChild());
+                                node.addLeftChild(superNode);
+                                if (superSuperNode != null) {
+                                    if (superSuperNode.getRightChild()==superNode) {
+                                        superSuperNode.addRightChild(node);
+                                    } else {
+                                        superSuperNode.addLeftChild(node);
+                                    }
+                                } else {
+                                    root = (BinarySearchTreeNode) node;
+                                    nodes.remove(node);
+                                    nodes.add(0, (E) node);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
+
 }
